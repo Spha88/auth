@@ -1,7 +1,13 @@
 <%- include('partials/header.ejs') %>
 
 <div class="row pt-5">
-    <h2>Welcome to the secret club</h2>
+    <div class="col">
+        <h2>Welcome to the secret club <%= currentUser ? currentUser.username : '' %> </h2>
+        <% if (!currentUser) { %>
+        <p class="lead">Please <a href="/log-in">Login</a> or <a href="/sign-up">Sign up</a></p>
+        <% } %>
+
+    </div>
 </div>
 
 
