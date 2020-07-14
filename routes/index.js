@@ -28,6 +28,6 @@ router.get('/log-out', userController.user_logout_get);
 router.get('/join', middleware.secret_page, userController.user_join_get);
 
 /** POST join - handles the joining process */
-router.post('/join', userController.user_join_post);
+router.post('/join', middleware.secret_page, userController.user_join_post);
 
 module.exports = router;
