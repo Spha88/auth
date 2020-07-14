@@ -35,6 +35,12 @@
                 <input type="password" class="form-control" name="confirm_password" placeholder="Confirm password"
                     value="<%= user ? user.confirm_password : '' %>">
             </div>
+            <div class="form-check mb-3">
+                <label class="form-check-label">
+                    <input class="form-check-input" name="admin" type="checkbox" value="true">
+                    Click if this is admin
+                </label>
+            </div>
             <input type="submit" class="btn btn-primary mr-3" value="submit">
         </form>
 

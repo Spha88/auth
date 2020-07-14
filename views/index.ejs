@@ -41,9 +41,12 @@
                         </small>
                     </footer>
                     <% } %>
+
+                    <% if (currentUser && currentUser.admin === true) { %>
                     <div class="mt-3">
                         <a class="btn btn-warning btn-sm" href="/messages/<%= message._id  %>/delete">Delete</a>
                     </div>
+                    <% } %>
                 </blockquote>
             </div>
             <% }) %>

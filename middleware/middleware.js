@@ -24,3 +24,11 @@ exports.members_only = (req, res, next) => {
     }
 
 }
+
+exports.admin_only = (req, res, next) => {
+    if (!req.user.admin) {
+        res.redirect('/')
+    } else {
+        next();
+    }
+}

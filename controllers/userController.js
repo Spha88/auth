@@ -43,6 +43,7 @@ exports.user_signup_post = [
             last_name: req.body.last_name,
             username: req.body.username,
             password: req.body.password,
+            admin: req.body.admin === 'true' ? true : false,
         })
 
         const results = validationResult(req);
