@@ -2,10 +2,15 @@ const express = require("express");
 const router = express.Router();
 const middleware = require('../middleware/middleware');
 const userController = require('../controllers/userController');
+const Message = require('../models/message');
 
 /* GET home page*/
 router.get('/', (req, res, next) => {
-    res.render('index', { title: "Welcome to secret club", user: req.user })
+    Message.find().populate("postedBy").exec((err, messagesFound) => {
+        if (err) return console.log(err);
+        console.log(messagesFound);
+        res.render('index', { title: 'Welcome to the secret club', user: req.user, messages: messagesFound });
+    })
 })
 
 /** GET Login - Displays login in form*/

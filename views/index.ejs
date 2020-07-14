@@ -17,6 +17,38 @@
             <a href="/messages/add" class="btn btn-primary">Add a secret</a>
         </div>
         <% } %>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h1>Messages</h1>
+        <% if (messages.length) { %>
+
+        <div class="card-columns">
+
+            <% messages.forEach(message => { %>
+            <div class="card text-white text-center p-3">
+                <blockquote class="blockquote mb-0">
+                    <h4 class="card-title"><%= message.title %> </h4>
+
+                    <p><%= message.message %></p>
+
+                    <% if (currentUser && currentUser.status === 'member') { %>
+                    <footer class="blockquote-footer">
+                        <small>
+                            <%= message.postedBy.first_name + ' ' + message.postedBy.last_name %> - <%= message.date %>
+                        </small>
+                    </footer>
+                    <% } %>
+                </blockquote>
+            </div>
+            <% }) %>
+
+        </div>
+        <% } else { %>
+        <h3>No messages yet</h3>
+        <p><a href="/log-in">Login</a> and add a message or <a href="/sign-up">Sign Up</a></p>
+        <% } %>
 
     </div>
 </div>
