@@ -3,8 +3,17 @@
 <div class="row pt-5">
     <div class="col">
         <h2>Welcome to the secret club <%= currentUser ? currentUser.username : '' %> </h2>
+
         <% if (!currentUser) { %>
         <p class="lead">Please <a href="/log-in">Login</a> or <a href="/sign-up">Sign up</a></p>
+        <% } %>
+
+        <% if (currentUser && !currentUser.status) { %>
+        <p class="lead">You are not yet a member, <a href="/join">Join the Secret Club</a></p>
+        <% } else if(currentUser && currentUser.status) { %>
+        <div class="mt-3">
+            <a href="/add-screte" class="btn btn-primary">Add a secret</a>
+        </div>
         <% } %>
 
     </div>

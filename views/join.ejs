@@ -1,0 +1,22 @@
+<%- include('partials/header.ejs') %>
+
+<div class="row pt-5 justify-content-center">
+    <div class="col-md-4">
+        <h2 class="text-center">Join the secret club <% if (currentUser) { %> <%= currentUser.first_name %> <% } %></h2>
+        <p>Enter the SECRET pass code and submit to become a member</p>
+        <ul>
+            <% errors && errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+        <form action="/join" method="POST">
+            <div class="form-group">
+                <label for="secret">Passcode</label>
+                <input type="text" class="form-control" name="secret" placeholder="Enter the SECRET">
+            </div>
+            <button type="submit" class="btn btn-primary mr-3">Submit</button>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer.ejs') %>
