@@ -3,7 +3,6 @@ const router = express.Router();
 const middleware = require('../middleware/middleware');
 const userController = require('../controllers/userController');
 
-
 /* GET home page*/
 router.get('/', (req, res, next) => {
     res.render('index', { title: "Welcome to secret club", user: req.user })

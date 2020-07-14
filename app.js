@@ -6,14 +6,16 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const User = require('./models/user');
 
-// Routes
+// Routes Imports
 const indexRouter = require('./routes/index');
-const Strategy = require('./strategy');
+const messageRouter = require('./routes/messages');
+
 
 
 const app = express();
 
 // SETUP PASSPORT
+const Strategy = require('./strategy');
 passport.use(Strategy);
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
@@ -50,6 +52,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', indexRouter);
+app.use('/messages', messageRouter);
 
 
 app.listen(4000, () => {
