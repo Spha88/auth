@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const middleware = require('../middleware/middleware');
 const userController = require('../controllers/userController');
+
 
 /* GET home page*/
 router.get('/', (req, res, next) => {
@@ -23,7 +25,7 @@ router.post('/sign-up', userController.user_signup_post);
 router.get('/log-out', userController.user_logout_get);
 
 /** GET Join - Displays a form for joining the club */
-router.get('/join', userController.user_join_get);
+router.get('/join', middleware.secret_page, userController.user_join_get);
 
 /** POST join - handles the joining process */
 router.post('/join', userController.user_join_post);
