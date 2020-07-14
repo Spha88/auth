@@ -6,11 +6,11 @@ const User = require('../models/user');
 
 // GET user login - Display login form
 exports.user_login_get = (req, res) => {
-    res.render('login', { title: 'Log in' })
+    res.render('login', { title: 'Log in', errors: null })
 }
 
 // POST handles login by user
-exports.user_login_post = passport.authenticate("local", { successRedirect: "/", failureRedirect: "/" });
+exports.user_login_post = passport.authenticate("local", { successRedirect: "/", failureRedirect: "/log-in" });
 
 // GET logout - handles user logout
 exports.user_logout_get = (req, res) => {
@@ -85,7 +85,7 @@ exports.user_join_get = (req, res) => {
 
 exports.user_join_post = [
     body('secret', 'Enter the SECRET to join the club').trim().isLength({ min: 1 }),
-    check('secret', 'You have no clue what the SECRET is').equals('SECRET'),
+    check('secret', 'You have no clue what the SECRET is right? lol').equals('SECRET'),
     body('secret').escape(),
     (req, res) => {
         const validationResults = validationResult(req);

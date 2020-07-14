@@ -1,14 +1,17 @@
 <%- include('partials/header.ejs') %>
 
 <div class="row pt-5 justify-content-center">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h2 class="text-center">Join the secret club <% if (currentUser) { %> <%= currentUser.first_name %> <% } %></h2>
-        <p>Enter the SECRET pass code and submit to become a member</p>
-        <ul>
+
+        <ul class="list-group mb-3">
             <% errors && errors.forEach(error => { %>
-            <li><%= error.msg %></li>
+            <li class="list-group-item text-danger"><%= error.msg %></li>
             <% }) %>
         </ul>
+
+        <p>Enter the SECRET passcode and submit to become a member</p>
+
         <form action="/join" method="POST">
             <div class="form-group">
                 <label for="secret">Passcode</label>

@@ -2,7 +2,14 @@
 
 <div class="row pt-5 justify-content-center">
     <div class="col-md-4">
-        <h2 class="text-center">Login</h2>
+        <h2 class="text-center mb-3">Login</h2>
+
+        <ul class="list-group mb-3">
+            <% errors && errors.forEach(error => { %>
+            <li class="list-group-item text-danger"><%= error.msg %></li>
+            <% }) %>
+        </ul>
+
         <form action="/log-in" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
