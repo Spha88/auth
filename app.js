@@ -16,9 +16,7 @@ const app = express();
 // SETUP PASSPORT
 passport.use(Strategy);
 passport.serializeUser((user, done) => done(null, user.id));
-passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => done(err, user));
-});
+passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
 //=========================================================
 
 // database connection
@@ -34,16 +32,16 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public')); // Set directory for static files
 app.use(express.urlencoded({ extended: false })); //parsing body variables
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));// passport uses this as a dependency.
 app.use(passport.initialize());
 app.use(passport.session())
 
 app.use((req, res, next) => { // my custom middleware for logging
-    console.log(req.method + ' ' + req.url + req.user);
+    console.log(req.method + ' ' + req.url + ' ' + req.user);
     next();
 })
 
-// once passport is setup, it will add a user property to the req object
+// once passport is setup, it will add a user property to the req object when the user is logged in
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     next();

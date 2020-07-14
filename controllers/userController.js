@@ -37,7 +37,7 @@ exports.user_signup_post = [
         })
 
         const results = validationResult(req);
-        console.log(results.errors);
+        // console.log(results.errors);
 
         if (!results.isEmpty()) {
             res.render('sign-up', { title: 'Sign up', user: user, errors: results.errors });
@@ -45,7 +45,7 @@ exports.user_signup_post = [
         }
 
         if (req.body.password !== req.body.confirm_password) {
-            console.log(results.errors);
+            // console.log(results.errors);
             res.render('sign-up', { title: 'Sign up', user: user, errors: [{ msg: 'Password did not match' }] });
         } else {
             bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
