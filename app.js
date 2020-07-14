@@ -55,6 +55,3 @@ app.use('/', indexRouter);
 app.listen(4000, () => {
     console.log('App listening to Port: 4000')
 })
-
-
-

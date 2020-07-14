@@ -1,15 +1,25 @@
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
 const User = require('../models/user');
 const user = require('../models/user');
 
 
-// GET user login
+// GET user login - Display login form
 exports.user_login_get = (req, res) => {
     res.render('login', { title: 'Log in' })
 }
 
-// GET user signup
+// POST handles login by user
+exports.user_login_post = passport.authenticate("local", { successRedirect: "/", failureRedirect: "/" });
+
+// GET logout - handles user logout
+exports.user_logout_get = (req, res) => {
+    req.logout(); // Passport added this method to the request object
+    res.redirect("/");
+}
+
+// GET user signup - Display signup form
 exports.user_signup_get = (req, res) => {
     res.render('sign-up', { title: 'Sign up', user: '', errors: '' })
 }
@@ -67,7 +77,5 @@ exports.user_signup_post = [
                 })
             })
         }
-
-
     }
 ]
