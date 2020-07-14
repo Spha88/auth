@@ -44,3 +44,21 @@ exports.message_create_post = [
         })
     }
 ]
+
+
+// GET Delete Message Confirmation
+exports.message_delete_get = (req, res) => {
+    Message.findById(req.params.id, (err, message) => {
+        if (err) return console.log(err);
+        res.render('delete-message', { title: 'Delete message', message: message })
+    })
+}
+
+// POST Delete form handler
+exports.message_delete_post = (req, res) => {
+    Message.findByIdAndDelete(req.body.id, (err, document) => {
+        if (err) return console.log(err);
+        console.log(document);
+        res.redirect('/');
+    })
+}

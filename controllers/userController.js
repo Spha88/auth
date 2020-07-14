@@ -97,8 +97,7 @@ exports.user_join_post = [
 
         User.findByIdAndUpdate(req.user._id, { status: 'member' }, (err, user) => {
             if (err) return console.log(err);
-            console.log(user);
-            res.send('User updated')
+            res.redirect('/');
         })
     }
 ]

@@ -8,7 +8,6 @@ const Message = require('../models/message');
 router.get('/', (req, res, next) => {
     Message.find().populate("postedBy").exec((err, messagesFound) => {
         if (err) return console.log(err);
-        console.log(messagesFound);
         res.render('index', { title: 'Welcome to the secret club', user: req.user, messages: messagesFound });
     })
 })

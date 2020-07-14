@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
@@ -11,6 +12,11 @@ const messageSchema = new Schema({
 messageSchema.virtual('url')
     .get(function () {
         return '/messages/' + this._id;
+    })
+
+messageSchema.virtual('dateFormatted')
+    .get(function () {
+        return moment(this.date).format('h:mm a, ddd DD MMMM, YYYY');
     })
 
 module.exports = mongoose.model('Message', messageSchema);

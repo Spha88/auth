@@ -19,9 +19,9 @@
         <% } %>
     </div>
 </div>
-<div class="row">
+<div class="row mt-5">
     <div class="col">
-        <h1>Messages</h1>
+        <h2 class="mb-3">Messages</h2>
         <% if (messages.length) { %>
 
         <div class="card-columns">
@@ -36,10 +36,14 @@
                     <% if (currentUser && currentUser.status === 'member') { %>
                     <footer class="blockquote-footer">
                         <small>
-                            <%= message.postedBy.first_name + ' ' + message.postedBy.last_name %> - <%= message.date %>
+                            <%= message.postedBy.first_name + ' ' + message.postedBy.last_name %> -
+                            <%= message.dateFormatted %>
                         </small>
                     </footer>
                     <% } %>
+                    <div class="mt-3">
+                        <a class="btn btn-warning btn-sm" href="/messages/<%= message._id  %>/delete">Delete</a>
+                    </div>
                 </blockquote>
             </div>
             <% }) %>
