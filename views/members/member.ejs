@@ -2,12 +2,27 @@
 
 <div class="row mt-5">
     <div class="col">
-        <h2 class="mb-3">Member Profile</h2>
+        <h2 class="mb-3"><%= user.full_name %></h2>
 
         <ul class="list-group">
-            <li class="list-group-item"><%= user.full_name %> - Total Secrets: <%= messages.length %> </li>
+            <li class="list-group-item">Total Secrets: <%= messages.length %> </li>
         </ul>
+
+        <% if ( String(currentUser._id) === String(user._id)) { %>
+        <div class="mt-3 mb-3">
+            <a class="btn btn-primary mr-2" href="#">Request Admin Permissions</a>
+            <a class="btn btn-primary" href="#">Edit Profile</a>
+        </div>
+        <% } %>
+
+        <hr>
         <h2 class="mt-4 mb-4">Messages</h2>
+
+        <% if ( String(currentUser._id) === String(user._id)) { %>
+        <div class="text-center">
+            <a class="btn btn-primary" href="/messages/add">Add Secret</a>
+        </div>
+        <% } %>
         <% if(messages.length) { %>
         <div class="card-columns mt-3">
 

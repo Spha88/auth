@@ -28,6 +28,9 @@
                         <a class="nav-link" href="/members">Members <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/members/<%= currentUser._id %>">My Profile</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-danger" href="/log-out">Logout</a>
                     </li>
                     <% } else { %>

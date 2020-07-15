@@ -36,7 +36,7 @@
                     <% if (currentUser && currentUser.status === 'member') { %>
                     <footer class="blockquote-footer">
                         <small>
-                            <%= message.postedBy.first_name + ' ' + message.postedBy.last_name %> -
+                            <a href="<%= message.postedBy.url %>"><%= message.postedBy.full_name %></a> -
                             <%= message.dateFormatted %>
                         </small>
                     </footer>
