@@ -12,5 +12,8 @@ router.get('/join', middleware.secret_page, memberController.user_join_get);
 /** POST join - handles the joining process */
 router.post('/join', middleware.secret_page, memberController.user_join_post);
 
+/** GET member - shows member profile */
+router.get('/:id', middleware.secret_page, memberController.member_get);
+
 
 module.exports = router;

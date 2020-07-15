@@ -1,15 +1,33 @@
 const { body, check, validationResult } = require('express-validator');
+const async = require('async');
 const User = require('../models/user');
+const Message = require('../models/message');
 
 // GET MEMBERS - List of all members in the club
 exports.members_get = (req, res) => {
+
     User.find((err, users) => {
         if (err) return console.log(error);
 
-        console.log(users);
         if (users.length) {
             res.render('members', { title: 'Members', users: users });
         }
+    })
+}
+
+// GET MEMBER - Get one member profile
+exports.member_get = (req, res) => {
+    async.parallel({
+        user: callback => User.findById(req.params.id).exec(callback),
+        messages: callback => Message.find({ 'postedBy': req.params.id }).populate('postedBy').exec(callback)
+    }, (err, results) => {
+        if (err) return console.log(err);
+
+        if (results.user == null) { //No author found
+            return console.log(err);
+        }
+
+        res.render('members/member', { title: results.user.full_name, user: results.user, messages: results.messages });
     })
 }
 
