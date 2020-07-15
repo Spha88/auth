@@ -31,14 +31,17 @@ exports.member_get = (req, res) => {
     })
 }
 
+// GET Display the joining form
 exports.user_join_get = (req, res) => {
     res.render('join', { title: 'Join the secret club', errors: null });
 }
 
+// POST Handle the joining form
 exports.user_join_post = [
     body('secret', 'Enter the SECRET to join the club').trim().isLength({ min: 1 }),
+
+    // Check if the secret entered is = SECRET
     check('secret', 'You have no clue what the SECRET is right? lol').equals('SECRET'),
-    body('secret').escape(),
     (req, res) => {
         const validationResults = validationResult(req);
         console.log(validationResults.errors.length);
@@ -61,3 +64,25 @@ exports.admin_request_get = (req, res) => {
         res.render('members/admin-request', { title: 'Admin Permissions Request', user: user, errors: null });
     })
 }
+
+// POST handle the Admin Permissions Request form
+exports.admin_request_post = [
+    body('secret', 'Enter the SECRET to become ADMIN').trim().isLength({ min: 1 }),
+
+    // Check if the secret entered is = SECRET ADMIN
+    check('secret', 'You have no clue what the SECRET is right?').equals('SECRET ADMIN'),
+    (req, res) => {
+        const validationResults = validationResult(req);
+
+        if (validationResults.errors.length) {
+            res.render('join', { title: 'Join the club', errors: validationResults.errors })
+
+        } else { // No validation errors - get user and update admin status
+            User.findByIdAndUpdate(req.user._id, { admin: true }, (err, user) => {
+                if (err) next(err);
+
+                res.redirect(user.url);
+            })
+        }
+    }
+];

@@ -13,7 +13,7 @@
 
         <p>Enter the SECRET admin Passcode and submit to become a member</p>
 
-        <form action="/members/admin" method="POST">
+        <form action="/members/<%= user._id %>/admin" method="POST">
             <div class="form-group">
                 <label for="secret">Passcode</label>
                 <input type="text" class="form-control" name="secret" placeholder="Enter the SECRET">

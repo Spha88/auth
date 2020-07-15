@@ -18,6 +18,9 @@ router.post('/join', memberController.user_join_post);
 /** GET admin permissions request */
 router.get('/:id/admin', memberController.admin_request_get);
 
+/** POST admin permissions request handler */
+router.post('/:id/admin', memberController.admin_request_post);
+
 /** GET member - shows member profile */
 router.get('/:id', memberController.member_get);
 
