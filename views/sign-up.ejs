@@ -3,8 +3,8 @@
 <div class="row pt-5 justify-content-center">
     <div class="col-md-4">
 
-        <h2 class="text-center">Sign Up</h2>
-        <ul class="list-group text-danger">
+        <h2 class="text-center mb-3">Sign Up</h2>
+        <ul class="list-group text-danger mb-3">
             <% if (errors) { errors.forEach(error => {  %>
             <li class="list-group-item"><%= error.msg %></li>
             <% }); } %>
@@ -43,6 +43,7 @@
             </div>
             <input type="submit" class="btn btn-primary mr-3" value="submit">
         </form>
+        <p class="mt-3">Already a registered? <a href="/log-in">Sign in</a></p>
 
 
     </div>

@@ -1,7 +1,17 @@
 const { body, check, validationResult } = require('express-validator');
 const User = require('../models/user');
 
+// GET MEMBERS - List of all members in the club
+exports.members_get = (req, res) => {
+    User.find((err, users) => {
+        if (err) return console.log(error);
 
+        console.log(users);
+        if (users.length) {
+            res.render('members', { title: 'Members', users: users });
+        }
+    })
+}
 
 exports.user_join_get = (req, res) => {
     res.render('join', { title: 'Join the secret club', errors: null });

@@ -8,13 +8,14 @@ const UserSchema = new Schema({
     username: { type: String, required: true, maxlength: 60 },
     password: { type: String, required: true, minlength: 4, maxlength: 200 },
     status: { type: String },
-    admin: { type: Boolean }
+    admin: { type: Boolean },
+    date: { type: Date, default: Date.now() }
 })
 
 UserSchema
     .virtual('full_name')
     .get(function () {
-        const full_name = '';
+        let full_name = '';
         if (this.first_name && this.last_name) {
             full_name = this.first_name + ' ' + this.last_name;
         }
@@ -28,7 +29,7 @@ UserSchema
 UserSchema
     .virtual('url')
     .get(function () {
-        return url = '/member/' + this._id;
+        return url = '/members/' + this._id;
     })
 
 // Export model

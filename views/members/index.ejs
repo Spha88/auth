@@ -1,0 +1,44 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="row pt-5">
+    <div class="col">
+        <h2>Welcome to the secret club <%= currentUser ? currentUser.username : '' %> </h2>
+
+        <% if (!currentUser) { %>
+        <p class="lead">Please <a href="/log-in">Login</a> or <a href="/sign-up">Sign up</a></p>
+        <% } %>
+
+        <% if (currentUser && !currentUser.status) { %>
+        <div class="alert alert-secondary">
+            You are not yet a member, <a href="/members/join">Join the Secret Club</a>
+        </div>
+        <% } else if(currentUser && currentUser.status) { %>
+        <div class="mt-3">
+            <a href="/messages/add" class="btn btn-primary">Add a secret</a>
+        </div>
+        <% } %>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col">
+        <h2 class="mb-3">Members</h2>
+        <p>Members in the club: <%= users.length %> </p>
+        <% if (users.length) { %>
+
+        <ul class="list-group">
+
+            <% users.forEach(user => { %>
+            <li class="list-group-item"><a href="<%= user.url %>"><%= user.full_name %></a></li>
+            <% }) %>
+
+        </ul>
+        <% } else { %>
+        <h3>No users yet</h3>
+        <p><a href=" /log-in">Login</a> and add a message or <a href="/sign-up">Sign Up</a></p>
+        <% } %>
+
+    </div>
+</div>
+
+
+<%- include('../partials/footer.ejs') %>
