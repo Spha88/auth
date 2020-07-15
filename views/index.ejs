@@ -10,7 +10,7 @@
 
         <% if (currentUser && !currentUser.status) { %>
         <div class="alert alert-secondary">
-            You are not yet a member, <a href="/join">Join the Secret Club</a>
+            You are not yet a member, <a href="/members/join">Join the Secret Club</a>
         </div>
         <% } else if(currentUser && currentUser.status) { %>
         <div class="mt-3">

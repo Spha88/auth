@@ -9,6 +9,7 @@ const User = require('./models/user');
 
 // Routes Imports
 const indexRouter = require('./routes/index');
+const memberRouter = require('./routes/memberRoutes');
 const messageRouter = require('./routes/messages');
 
 
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', indexRouter);
+app.use('/members', memberRouter);
 app.use('/messages', messageRouter);
 
 
