@@ -5,7 +5,7 @@ exports.secret_page = (req, res, next) => {
     // No one is logged in
     if (!req.user) {
         console.log('Middleware says, no one is logged in');
-        res.render('sign-up', { title: 'Sign up', user: null, errors: [{ msg: 'You need to sign-up before joining' }] });
+        res.render('sign-up', { title: 'Sign up', user: null, errors: [{ msg: 'You have to Sign up or Login.' }] });
         return;
     }
     next();
@@ -16,7 +16,7 @@ exports.members_only = (req, res, next) => {
     if (!req.user) {
         //No user logged in
         console.log('Members only says, no user logged in');
-        res.render('login', { title: 'Login in', errors: [{ msg: 'You need to log in before adding SECRETS' }] });
+        res.render('login', { title: 'Login in', errors: [{ msg: 'You need to log in to proceed.' }] });
         return;
     }
 
