@@ -10,7 +10,7 @@ router.get('/', messageController.messages_get);
 router.get('/add', middleware.members_only, messageController.message_create_get);
 
 // POST - Handle form for creating a new message
-router.post('/add', messageController.message_create_post);
+router.post('/add', middleware.members_only, messageController.message_create_post);
 
 // DELETE messages - Delete message confirmation page
 router.get('/:id/delete', [middleware.members_only, middleware.admin_only], messageController.message_delete_get);

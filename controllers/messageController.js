@@ -17,19 +17,14 @@ exports.message_create_post = [
     body('title', 'Title should not be empty').trim().isLength({ min: 1 }),
     body('message', 'Message should not be empty').trim().isLength({ min: 1 }),
     body('*').escape(),
+
     (req, res) => {
-
-        console.log('Im here one');
-
         const validationResults = validationResult(req);
 
         if (validationResults.errors.length) {
-            console.log("I'm here two")
             res.render('add-message', { title: 'Add message', errors: validationResults.errors })
             return;
         }
-
-        console.log('Im here three');
 
         const message = new Message({
             title: req.body.title,
@@ -38,9 +33,9 @@ exports.message_create_post = [
         })
 
         message.save((err, message) => {
-            if (err) return console.log('Error saving message: ', err);
+            if (err) return next(new Error('Error saving message: ', err));
             console.log("Message saved: ", message);
-            res.redirect('/');
+            res.redirect(req.user.url);
         })
     }
 ];
