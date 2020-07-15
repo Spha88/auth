@@ -16,7 +16,10 @@ router.post('/add', messageController.message_create_post);
 router.get('/:id/delete', [middleware.members_only, middleware.admin_only], messageController.message_delete_get);
 
 // DELETE message - Delete message form handler
-router.post('/:id/delete', [middleware.members_only, middleware.admin_only], messageController.message_delete_post);
+router.delete('/:id/delete', [middleware.members_only, middleware.admin_and_owner], messageController.message_delete);
+
+// GET View Message - Display a single message
+router.get('/:id', middleware.members_only, messageController.message_get);
 
 
 

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require("express");
 const path = require("path");
+const methodOverride = require('method-override');
 const session = require("express-session");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -33,6 +34,7 @@ app.set('view engine', 'ejs');
 
 
 app.use(express.static('public')); // Set directory for static files
+app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false })); //parsing body variables
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));// passport uses this as a dependency.
 app.use(passport.initialize());

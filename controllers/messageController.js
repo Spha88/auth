@@ -43,7 +43,16 @@ exports.message_create_post = [
             res.redirect('/');
         })
     }
-]
+];
+
+// GET Display one message.
+exports.message_get = (req, res) => {
+    Message.findById(req.params.id).populate('postedBy').exec((err, message) => {
+        if (err) return console.log(err);
+        console.log(message);
+        res.render('message', { title: `Secret Message | ${message.title}`, message: message });
+    });
+}
 
 
 // GET Delete Message Confirmation
@@ -55,7 +64,7 @@ exports.message_delete_get = (req, res) => {
 }
 
 // POST Delete form handler
-exports.message_delete_post = (req, res) => {
+exports.message_delete = (req, res) => {
     Message.findByIdAndDelete(req.body.id, (err, document) => {
         if (err) return console.log(err);
         console.log(document);

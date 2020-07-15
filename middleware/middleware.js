@@ -1,3 +1,6 @@
+const Message = require('../models/message');
+
+// Only allow logged in users through
 exports.secret_page = (req, res, next) => {
     // No one is logged in
     if (!req.user) {
@@ -8,6 +11,7 @@ exports.secret_page = (req, res, next) => {
     next();
 }
 
+// Only allow members (status: 'member') through
 exports.members_only = (req, res, next) => {
     if (!req.user) {
         //No user logged in
@@ -25,10 +29,28 @@ exports.members_only = (req, res, next) => {
 
 }
 
+// Only allow administrators through
 exports.admin_only = (req, res, next) => {
     if (!req.user.admin) {
         res.redirect('/')
+
     } else {
         next();
     }
+}
+
+// Admin and owner
+exports.admin_and_owner = (req, res, next) => {
+    Message.findById(req.body.id).populate('postedBy').exec((err, message) => {
+        if (err) return console.log(err);
+
+        if (String(message.postedBy._id) === String(req.user._id)) {
+            return next();
+
+        } else if (req.user.admin === true) {
+            return next();
+        }
+
+        res.redirect('/');
+    })
 }
