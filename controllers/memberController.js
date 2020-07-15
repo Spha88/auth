@@ -7,11 +7,9 @@ const Message = require('../models/message');
 exports.members_get = (req, res) => {
 
     User.find((err, users) => {
-        if (err) return console.log(error);
+        if (err) return next(err);
 
-        if (users.length) {
-            res.render('members', { title: 'Members', users: users });
-        }
+        res.render('members', { title: 'Members', users: users });
     })
 }
 
@@ -21,10 +19,10 @@ exports.member_get = (req, res) => {
         user: callback => User.findById(req.params.id).exec(callback),
         messages: callback => Message.find({ 'postedBy': req.params.id }).populate('postedBy').exec(callback)
     }, (err, results) => {
-        if (err) return console.log(err);
+        if (err) return next(err);
 
         if (results.user == null) { //No author found
-            return console.log(err);
+            return next(new Error('ERROR FETCHING USER: User not in database'));
         }
 
         res.render('members/member', { title: results.user.full_name, user: results.user, messages: results.messages });
@@ -44,14 +42,14 @@ exports.user_join_post = [
     check('secret', 'You have no clue what the SECRET is right? lol').equals('SECRET'),
     (req, res) => {
         const validationResults = validationResult(req);
-        console.log(validationResults.errors.length);
+
         if (validationResults.errors.length) {
             res.render('join', { title: 'Join the club', errors: validationResults.errors })
             return;
         }
 
         User.findByIdAndUpdate(req.user._id, { status: 'member' }, (err, user) => {
-            if (err) return console.log(err);
+            if (err) return next(err);
             res.redirect('/');
         })
     }
@@ -79,7 +77,7 @@ exports.admin_request_post = [
 
         } else { // No validation errors - get user and update admin status
             User.findByIdAndUpdate(req.user._id, { admin: true }, (err, user) => {
-                if (err) next(err);
+                if (err) return next(err);
 
                 res.redirect(user.url);
             })

@@ -34,7 +34,6 @@ exports.message_create_post = [
 
         message.save((err, message) => {
             if (err) return next(new Error('Error saving message: ', err));
-            console.log("Message saved: ", message);
             res.redirect(req.user.url);
         })
     }
@@ -43,7 +42,7 @@ exports.message_create_post = [
 // GET Display one message.
 exports.message_get = (req, res) => {
     Message.findById(req.params.id).populate('postedBy').exec((err, message) => {
-        if (err) return console.log(err);
+        if (err) return next(new Error('Error: could not find the message to display'))
 
         res.render('message', { title: `Secret Message | ${message.title}`, message: message });
     });
@@ -53,7 +52,8 @@ exports.message_get = (req, res) => {
 // GET Delete Message Confirmation
 exports.message_delete_get = (req, res) => {
     Message.findById(req.params.id, (err, message) => {
-        if (err) return console.log(err);
+        if (err) return next(new Error('Error: could not get message from database'));
+
         res.render('delete-message', { title: 'Delete message', message: message })
     })
 }
@@ -61,8 +61,8 @@ exports.message_delete_get = (req, res) => {
 // POST Delete form handler
 exports.message_delete = (req, res) => {
     Message.findByIdAndDelete(req.body.id, (err, document) => {
-        if (err) return console.log(err);
-        console.log(document);
+        if (err) return next(new Error('Error: could not get message from database'));
+
         res.redirect('/');
     })
 }

@@ -2,6 +2,7 @@ const { body, check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../models/user');
+const { nextTick } = require('async');
 
 
 // GET user login - Display login form
@@ -47,7 +48,6 @@ exports.user_signup_post = [
         })
 
         const results = validationResult(req);
-        // console.log(results.errors);
 
         if (!results.isEmpty()) {
             res.render('sign-up', { title: 'Sign up', user: user, errors: results.errors });
@@ -55,26 +55,17 @@ exports.user_signup_post = [
         }
 
         if (req.body.password !== req.body.confirm_password) {
-            // console.log(results.errors);
             res.render('sign-up', { title: 'Sign up', user: user, errors: [{ msg: 'Password did not match' }] });
+
         } else {
             bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
 
-                if (err) {
-                    res.redirect('/sign-up');
-                    return;
-                }
+                if (err) return next(err);
 
                 user.password = hashedPassword;
 
                 // Save user to database
-                user.save(err => {
-                    if (err) {
-                        res.redirect('/sign-up')
-                        return;
-                    }
-                    res.redirect('/');
-                })
+                user.save(err => err ? next(err) : res.redirect('/'));
             })
         }
     }
