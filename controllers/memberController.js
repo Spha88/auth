@@ -52,4 +52,12 @@ exports.user_join_post = [
             res.redirect('/');
         })
     }
-]
+];
+
+// GET Display the admin permissions request form
+exports.admin_request_get = (req, res) => {
+    User.findById(req.user.id, (err, user) => {
+        if (err) return next(err);
+        res.render('members/admin-request', { title: 'Admin Permissions Request', user: user, errors: null });
+    })
+}
