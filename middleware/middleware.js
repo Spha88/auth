@@ -15,7 +15,7 @@ exports.secret_page = (req, res, next) => {
 exports.members_only = (req, res, next) => {
     if (!req.user) {
         //No user logged in
-        console.log('Members only says, no user logged in');
+        // console.log('Members only says, no user logged in');
         res.render('login', { title: 'Login in', errors: [{ msg: 'You need to log in to proceed.' }] });
         return;
     }

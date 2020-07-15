@@ -17,7 +17,7 @@ const messageRouter = require('./routes/messages');
 const app = express();
 
 // SETUP PASSPORT
-const Strategy = require('./strategy');
+const Strategy = require('./utils/strategy');
 passport.use(Strategy);
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
@@ -41,10 +41,10 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));// 
 app.use(passport.initialize());
 app.use(passport.session())
 
-app.use((req, res, next) => { // my custom middleware for logging
-    console.log(req.method + ' ' + req.url + ' ' + req.user);
-    next();
-})
+// app.use((req, res, next) => { // my custom middleware for logging
+//     console.log(req.method + ' ' + req.url + ' ' + req.user);
+//     next();
+// })
 
 // once passport is setup, it will add a user property to the req object when the user is logged in
 app.use((req, res, next) => {

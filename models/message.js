@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
+const helpers = require('../utils/helpers');
 const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
@@ -8,6 +9,9 @@ const messageSchema = new Schema({
     postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     date: { type: Date, default: Date.now() },
 })
+messageSchema.virtual('extract').get(function () {
+    return helpers.extract(String(this.message), 200);
+});
 
 messageSchema.virtual('url')
     .get(function () {

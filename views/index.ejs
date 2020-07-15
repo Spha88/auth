@@ -21,7 +21,7 @@
 </div>
 <div class="row mt-5">
     <div class="col">
-        <h2 class="mb-3">Messages </small></h2>
+        <h2 class="mb-3">Secrets </small></h2>
         <% if (messages.length) { %>
 
         <div class="card-columns">
@@ -31,7 +31,7 @@
                 <blockquote class="blockquote mb-0">
                     <h4 class="card-title"><%= message.title %> </h4>
 
-                    <p><%= message.message %></p>
+                    <p><%= message.extract %></p>
 
                     <% if (currentUser && currentUser.status === 'member') { %>
                     <footer class="blockquote-footer">

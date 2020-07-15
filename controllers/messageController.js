@@ -44,7 +44,7 @@ exports.message_create_post = [
 exports.message_get = (req, res) => {
     Message.findById(req.params.id).populate('postedBy').exec((err, message) => {
         if (err) return console.log(err);
-        console.log(message);
+
         res.render('message', { title: `Secret Message | ${message.title}`, message: message });
     });
 }
