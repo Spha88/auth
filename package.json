@@ -12,7 +12,7 @@
   "author": "S.Mehlomakulu",
   "license": "ISC",
   "dependencies": {
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.3",
